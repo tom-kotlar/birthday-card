@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,11 +35,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TestOneTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GreetingImage(
-                        message = "Happy Birthday Siri!",
-                        from = "From Tom",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    ArticlePage(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -44,50 +43,48 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingText(modifier: Modifier = Modifier, message: String, from: String) {
-    Column(verticalArrangement = Arrangement.Top, modifier = modifier) {
-        Text(
-            text = message,
-            fontSize = 100.sp,
-            lineHeight = 116.sp,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = from,
-            fontSize = 36.sp,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(alignment = Alignment.End),
-            color = MaterialTheme.colorScheme.primary
-        )
-    }
+fun ArticlePage(modifier: Modifier = Modifier) {
+    ArticleCard(
+        heading = stringResource(R.string.article_heading),
+        summary = stringResource(R.string.article_summary),
+        tutorial = stringResource(R.string.article_tutorial),
+        image = painterResource(R.drawable.bg_compose_background),
+        modifier = modifier
+    )
 }
 
+
 @Composable
-fun GreetingImage(message: String, from: String, modifier: Modifier = Modifier) {
-    val image = painterResource(R.drawable.bg1)
-    Box(modifier) {
+fun ArticleCard(
+    modifier: Modifier = Modifier,
+    heading: String,
+    summary: String,
+    tutorial: String,
+    image: Painter
+) {
+    Column(modifier = modifier) {
         Image(
             painter = image,
             contentDescription = null,
-            alpha = 0.7F,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-
-            )
-        GreetingText(
-            message = message,
-            from = from,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BirthdayCardPreview() {
-    TestOneTheme {
-        GreetingImage(message = stringResource(R.string.happy_birthday_siri), from = "From Tom")
+        Text(
+            text = heading,
+            fontSize = 24.sp,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 16.dp),
+            textAlign = TextAlign.Justify,
+        )
+        Text(
+            text = summary,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+            textAlign = TextAlign.Justify,
+        )
+        Text(
+            text = tutorial,
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Justify,
+        )
     }
 }
