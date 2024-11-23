@@ -6,24 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.testone.ui.theme.TestOneTheme
@@ -45,10 +40,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ArticlePage(modifier: Modifier = Modifier) {
     ArticleCard(
-        heading = stringResource(R.string.article_heading),
-        summary = stringResource(R.string.article_summary),
-        tutorial = stringResource(R.string.article_tutorial),
-        image = painterResource(R.drawable.bg_compose_background),
+        heading = "All task completed",
+        summary = "Nice Work",
+        image = painterResource(R.drawable.ic_task_completed),
         modifier = modifier
     )
 }
@@ -59,32 +53,24 @@ fun ArticleCard(
     modifier: Modifier = Modifier,
     heading: String,
     summary: String,
-    tutorial: String,
     image: Painter
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.fillMaxHeight().fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+        ) {
         Image(
             painter = image,
             contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
         )
         Text(
             text = heading,
-            fontSize = 24.sp,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 16.dp),
-            textAlign = TextAlign.Justify,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 24.dp,  bottom = 8.dp),
         )
         Text(
             text = summary,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-            textAlign = TextAlign.Justify,
-        )
-        Text(
-            text = tutorial,
-            modifier = Modifier.padding(16.dp),
-            textAlign = TextAlign.Justify,
+            fontSize = 16.sp,
         )
     }
 }
